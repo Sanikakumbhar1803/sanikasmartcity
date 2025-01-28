@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCity Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJTfa66nD_Rtb3uh_yMpRD5aVepaT3q2I&callback=initMap"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between">
+            <h1 class="text-2xl font-bold">Kankavli SmartCity Dashboard</h1>
+            <ul class="flex space-x-4">
+                <li><a href="#home" class="hover:underline">Home</a></li>
+                <li><a href="#alerts" class="hover:underline">Emergency Alerts</a></li>
+                <li><a href="#events" class="hover:underline">Events</a></li>
+                <li><a href="#gamification" class="hover:underline">Gamification</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6">
+        <!-- Real-time Data Visualization -->
+        <section id="home" class="bg-white p-4 shadow rounded-lg mb-4">
+            <h2 class="text-xl font-semibold">Real-time Data Visualization</h2>
+            <canvas id="trafficChart" class="mt-4"></canvas>
+        </section>
+
+        <!-- Interactive Map -->
+        <section id="mapSection" class="bg-white p-4 shadow rounded-lg mb-4">
+            <h2 class="text-xl font-semibold">Interactive City Map</h2>
+            <div id="map" class="w-full h-64 mt-4"></div>
+        </section>
+
+        <!-- Emergency Alerts -->
+        <section id="alerts" class="bg-white p-4 shadow rounded-lg mb-4">
+            <h2 class="text-xl font-semibold">Emergency Alerts</h2>
+            <p>Real-time notifications for road closures, weather alerts, and power outages.
+
+            </p>
+            <img src="images/ea.webp">
+        </section>
+
+        <!-- Event Management -->
+        <section id="events" class="bg-white p-4 shadow rounded-lg mb-4">
+            <h2 class="text-xl font-semibold">Event Management</h2>
+            <p>Upcoming city events with RSVP and calendar view.</p>
+            <p> There is no upcoming event.</p>
+        </section>
+
+        <!-- Gamification -->
+        <section id="gamification" class="bg-white p-4 shadow rounded-lg">
+            <h2 class="text-xl font-semibold">Gamification</h2>
+            <p>Earn badges and rewards for eco-friendly activities.</p>
+            <img src="images/game.webp">
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-4 mt-6">
+        <p>&copy; 2025 SmartCity Dashboard. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Traffic Chart
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['12AM', '3AM', '6AM', '9AM', '12PM', '3PM', '6PM', '9PM'],
+                    datasets: [{
+                        label: 'Traffic Congestion (%)',
+                        data: [20, 15, 30, 50, 70, 90, 80, 60],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+
+        // Initialize Google Map
+        function initMap() {
+            const cityCenter = { lat: 20.5939, lng: 78.9629 };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: cityCenter
+            });
+            new google.maps.Marker({
+                position: cityCenter,
+                map: map,
+                title: "City Center"
+            });
+        }
+    </script>
+</body>
+</html>
